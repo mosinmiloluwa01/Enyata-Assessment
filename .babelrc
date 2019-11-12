@@ -1,0 +1,26 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": { "node": "current" }
+      }
+    ]
+  ],
+  "plugins": [
+    [
+      "babel-plugin-module-resolver",
+      {
+        "root": ["./server"],
+        "alias": {
+          "<server>": "./server",
+          "<helpers>": "./server/helpers",
+          "<models>": "./server/models",
+          "<controllers>": "./server/controllers",
+          "<validations>": "./server/validations",
+          "<services>": "./server/services"
+        }
+      }
+    ]
+  ]
+}
