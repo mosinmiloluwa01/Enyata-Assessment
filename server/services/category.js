@@ -70,3 +70,20 @@ export const AddABookToACategory = async (categoryID, bookID) => {
     throw error.message;
   }
 };
+
+export const getBooksInACategory = async (categoryID) => {
+  try {
+    const category = await Category.findAll({
+      attributes: ['id', 'name'],
+      include: [{
+        model: Book,
+        as: 'Books',
+        attributes: ['id', 'name']
+      }],
+      where: { id: categoryID }
+    });
+    return category;
+  } catch (error) {
+    throw error.message;
+  }
+};

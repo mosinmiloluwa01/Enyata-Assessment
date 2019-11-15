@@ -1,5 +1,4 @@
 import validator from 'validatorjs';
-import redisClient from '<server>/redisServer';
 
 
 /**
@@ -38,23 +37,3 @@ export const displayMessage = (res, statusCode, dataObject) => res.status(status
   status: statusCode < 300 ? 'success' : 'error',
   ...dataObject,
 });
-
-export const getCachedData = (key) => {
-  redisClient.get(key, (err, cachedData) => {
-    if (err) {
-      throw err;
-    }
-    if (cachedData !== null) {
-      return cachedData;
-    }
-    return null;
-  });
-};
-
-export const createCacheData = (key, duration, data) => {
-  try {
-    redisClient.setex(key, duration, JSON.stringify(data));
-  } catch (error) {
-    throw error.message;
-  }
-};

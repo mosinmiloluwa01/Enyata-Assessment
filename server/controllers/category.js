@@ -1,6 +1,11 @@
-import { displayMessage, getCachedData, createCacheData } from '<helpers>/utils';
+import { displayMessage } from '<helpers>/utils';
 import {
-  createACategory, getAllCategories, updateACategory, deleteACategory, AddABookToACategory
+  createACategory,
+  getAllCategories,
+  updateACategory,
+  deleteACategory,
+  AddABookToACategory,
+  getBooksInACategory,
 } from '<services>/category';
 
 export const createCategory = async (req, res) => {
@@ -17,10 +22,7 @@ export const createCategory = async (req, res) => {
 export const getCategories = async (req, res) => {
   try {
     const categories = await getAllCategories();
-    createCacheData('categories', 10000, JSON.stringify(categories));
-    const cachedCategories = getCachedData('categories');
-    const data = cachedCategories || categories;
-    return displayMessage(res, 200, { message: 'category retrieved successfully', data });
+    return displayMessage(res, 200, { message: 'category retrieved successfully', data: categories });
   } catch (error) {
     return displayMessage(res, 500, { message: 'a server error has occured', error });
   }
@@ -54,9 +56,18 @@ export const AddABookToCategory = async (req, res) => {
   try {
     const { bookId } = req.body;
     const { categoryId } = req.params;
-    const data = { bookId };
     const book = await AddABookToACategory(categoryId, bookId);
-    return displayMessage(res, 201, { message: 'the book has been added successfully', data: book });
+    return displayMessage(res, 201, { message: 'books retrieved successfully', data: book });
+  } catch (error) {
+    return displayMessage(res, 500, { message: 'a server error has occured', error });
+  }
+};
+
+export const getBooksInCategory = async (req, res) => {
+  try {
+    const { categoryId } = req.params;
+    const book = await getBooksInACategory(categoryId);
+    return displayMessage(res, 200, { message: 'the book has been added successfully', data: book });
   } catch (error) {
     return displayMessage(res, 500, { message: 'a server error has occured', error });
   }

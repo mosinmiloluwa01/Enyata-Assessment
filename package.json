@@ -1,5 +1,5 @@
 {
-  "name": "food-network",
+  "name": "enyata-assessment",
   "version": "1.0.0",
   "description": "A web application that creates food categories",
   "main": "index.js",
@@ -11,6 +11,9 @@
     "heroku-postbuild": "npm run build",
     "build": "npm run clean && babel ./server  -d  ./build -s",
     "clean": "rimraf ./build"
+  },
+  "engines": {
+    "node": "10.x"
   },
   "repository": {
     "type": "git",
@@ -31,6 +34,7 @@
     "babel-plugin-module-resolver": "^3.2.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "cross-env": "^6.0.3",
     "dotenv": "^8.2.0",
     "eslint": "^6.1.0",

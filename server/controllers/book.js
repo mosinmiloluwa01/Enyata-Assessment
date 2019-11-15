@@ -1,4 +1,4 @@
-import { displayMessage, getCachedData, createCacheData } from '<helpers>/utils';
+import { displayMessage } from '<helpers>/utils';
 import {
   createABook, getAllBooks, updateABook, deleteABook
 } from '<services>/book';
@@ -17,10 +17,7 @@ export const createBook = async (req, res) => {
 export const getBooks = async (req, res) => {
   try {
     const books = await getAllBooks();
-    createCacheData('Books', 10000, JSON.stringify(books));
-    const cachedBooks = getCachedData('Books');
-    const data = cachedBooks || books;
-    return displayMessage(res, 200, { message: 'book retrieved successfully', data });
+    return displayMessage(res, 200, { message: 'book retrieved successfully', data: books });
   } catch (error) {
     return displayMessage(res, 500, { message: 'a server error has occured', error });
   }

@@ -13,7 +13,7 @@ const category = (sequelize, DataTypes) => {
   Category.associate = (models) => {
     Category.belongsToMany(models.Book, {
       through: 'BookCategory',
-      as: 'Categories',
+      as: 'Books',
       foreignKey: 'categoryId',
       otherKey: 'bookId'
     });

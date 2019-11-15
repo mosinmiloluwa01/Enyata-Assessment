@@ -12,3 +12,6 @@ coverage
 
 #database.sqlite
 database.sqlite
+
+#build
+build
