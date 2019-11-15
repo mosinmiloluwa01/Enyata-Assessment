@@ -4,7 +4,13 @@
   "description": "A web application that creates food categories",
   "main": "index.js",
   "scripts": {
-    "start-dev": "nodemon ./server/index.js --exec babel-node"
+    "start-dev": "nodemon ./server/index.js --exec babel-node",
+    "setup-DB": "sequelize db:migrate",
+    "rollback-DB": "sequelize db:migrate:undo:all",
+    "start": "node ./build/index.js",
+    "heroku-postbuild": "npm run build",
+    "build": "npm run clean && babel ./server  -d  ./build -s",
+    "clean": "rimraf ./build"
   },
   "repository": {
     "type": "git",

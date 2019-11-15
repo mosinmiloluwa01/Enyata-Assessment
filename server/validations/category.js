@@ -1,9 +1,9 @@
 import { checkValidation, displayMessage } from '<helpers>/utils';
 
-const validateCategoryInput = (req, res, next) => {
+export const validateCategoryInput = (req, res, next) => {
   const { name } = req.body;
 
-  const data = { name: name ? name.replace(/\s/g, '') : '' };
+  const data = { name: name ? name.trim() : '' };
   const rules = {
     name: 'required|string|min:2',
   };
@@ -12,8 +12,21 @@ const validateCategoryInput = (req, res, next) => {
   if (validationData !== true) {
     return displayMessage(res, 400, { message: 'validation error occured', errors: validationData });
   }
-  req.body = { name: name.replace(/\s/g, '') };
+  req.body = { name: name.trim() };
   next();
 };
 
-export default validateCategoryInput;
+export const validateBookCategoryInput = (req, res, next) => {
+  const { bookId } = req.body;
+
+  const data = { bookId };
+  const rules = {
+    bookId: 'required|integer',
+  };
+
+  const validationData = checkValidation(data, rules);
+  if (validationData !== true) {
+    return displayMessage(res, 400, { message: 'validation error occured', errors: validationData });
+  }
+  next();
+};

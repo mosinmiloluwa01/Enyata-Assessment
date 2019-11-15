@@ -10,7 +10,14 @@ const category = (sequelize, DataTypes) => {
       }
     },
   }, {});
-  Category.associate = () => {};
+  Category.associate = (models) => {
+    Category.belongsToMany(models.Book, {
+      through: 'BookCategory',
+      as: 'Categories',
+      foreignKey: 'categoryId',
+      otherKey: 'bookId'
+    });
+  };
   return Category;
 };
 

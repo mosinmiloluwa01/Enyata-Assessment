@@ -1,6 +1,6 @@
 import { displayMessage, getCachedData, createCacheData } from '<helpers>/utils';
 import {
-  createACategory, getAllCategories, updateACategory, deleteACategory
+  createACategory, getAllCategories, updateACategory, deleteACategory, AddABookToACategory
 } from '<services>/category';
 
 export const createCategory = async (req, res) => {
@@ -45,6 +45,18 @@ export const deleteCategory = async (req, res) => {
       return displayMessage(res, 404, { message: 'category not found' });
     }
     return displayMessage(res, 200, { message: 'category deleted successfully' });
+  } catch (error) {
+    return displayMessage(res, 500, { message: 'a server error has occured', error });
+  }
+};
+
+export const AddABookToCategory = async (req, res) => {
+  try {
+    const { bookId } = req.body;
+    const { categoryId } = req.params;
+    const data = { bookId };
+    const book = await AddABookToACategory(categoryId, bookId);
+    return displayMessage(res, 201, { message: 'the book has been added successfully', data: book });
   } catch (error) {
     return displayMessage(res, 500, { message: 'a server error has occured', error });
   }
